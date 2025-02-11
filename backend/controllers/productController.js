@@ -26,7 +26,7 @@ export const createProduct = async (req, res) => {
   try {
     const newProduct = await sql`
       INSERT INTO products (name, price, image)
-      VALUES (${name},${price}.${image})
+      VALUES (${name},${price},${image})
       RETURNING *
     `;
     console.log('new product added: ', newProduct);
@@ -40,7 +40,7 @@ export const createProduct = async (req, res) => {
 export const getProduct = async (req, res) => {
   const { id } = req.params;
   try {
-    const product = sql`
+    const product = await sql`
       SELECT * FROM products
       WHERE id=${id}
     `;
