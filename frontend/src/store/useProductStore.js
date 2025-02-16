@@ -5,7 +5,7 @@ const BASE_URL = "http://localhost:3000"
 
 export const useProductStore = create((set) => ({
   // product state
-  product: [],
+  products: [],
   loading: false,
   error: null,
 
