@@ -3,20 +3,23 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import { aj } from './lib/arcjet.js';
+import path from 'path';
 
 import productRoutes from './routes/productRoutes.js'
 import { sql } from './config/db.js';
+import { aj } from './lib/arcjet.js';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-app.use(helmet()); //middleware de seguridad
+const __dirname = path.resolve();
+app.use(helmet({ contentSecurityPolicy: false, })); //middleware de seguridad
 app.use(cors()); //permite la coneccion de back y fron en diferentes dominios
 app.use(morgan('dev'));// hace logs de los requests que hagamos
 app.use(express.json()); //convertira el cuerpo dela solicutid req.body de estar en JSON a on objeto js para manejarlo enel backend
+
+
 
 //Aplicando arcjet a todas las routes
 app.use(async (req, res, next) => {
@@ -51,6 +54,14 @@ app.use(async (req, res, next) => {
 
 app.use('/api/products', productRoutes);
 
+if (process.env.NODE_ENV === "production") {
+  //server our react app
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  })
+};
 
 async function initDB() {
   try {
