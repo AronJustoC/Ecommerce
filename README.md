@@ -1,4 +1,5 @@
 # ✨ PERN Stack Project ✨
+![image](https://github.com/user-attachments/assets/50cd994b-4720-4ed3-a340-40c84f521feb)
 
 ## Mi Camino con el PERN Stack
 
