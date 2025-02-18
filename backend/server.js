@@ -14,6 +14,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const __dirname = path.resolve();
+
 app.use(helmet({ contentSecurityPolicy: false, })); //middleware de seguridad
 app.use(cors()); //permite la coneccion de back y fron en diferentes dominios
 app.use(morgan('dev'));// hace logs de los requests que hagamos
@@ -60,7 +61,7 @@ if (process.env.NODE_ENV === "production") {
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-  })
+  });
 };
 
 async function initDB() {
