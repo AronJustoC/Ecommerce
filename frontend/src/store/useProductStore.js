@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 //my-postgre-store.com
-const BASE_URL = import.meta.env.MODE ? "http://localhost:3000" : "";
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : "";
 export const useProductStore = create((set, get) => ({
   // product state
   products: [],
